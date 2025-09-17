@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interior Design Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .filter-buttons {
+      margin: 1rem;
+      text-align: center;
+    }
+    .filter-buttons button {
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .filter-buttons button:hover {
+      background: #45a049;
+    }
+    .design-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .design-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .design-card:hover {
+      transform: scale(1.03);
+    }
+    .design-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .design-card .content {
+      padding: 1rem;
+    }
+    .design-card h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    .design-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Interior Design Portfolio</h1>
+  </header>
+
+  <div class="filter-buttons">
+    <button onclick="filterDesigns('all')">All</button>
+    <button onclick="filterDesigns('Living Room')">Living Room</button>
+    <button onclick="filterDesigns('Bedroom')">Bedroom</button>
+    <button onclick="filterDesigns('Kitchen')">Kitchen</button>
+  </div>
+
+  <div class="design-gallery" id="designGallery">
+    <!-- Design cards will be inserted here dynamically -->
+  </div>
+
+  <script>
+    const designs = [
+      {
+        title: 'Cozy Living Room',
+        type: 'Living Room',
+        img: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=80',
+        description: 'A warm and inviting living room with modern furniture and soft lighting.'
+      },
+      {
+        title: 'Modern Bedroom',
+        type: 'Bedroom',
+        img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+        description: 'A sleek bedroom with minimalist design and natural light.'
+      },
+      {
+        title: 'Open Kitchen',
+        type: 'Kitchen',
+        img: 'https://images.unsplash.com/photo-1549187774-b4e9b0445b19?auto=format&fit=crop&w=600&q=80',
+        description: 'A spacious kitchen with an open floor plan and contemporary appliances.'
+      },
+      {
+        title: 'Elegant Living Room',
+        type: 'Living Room',
+        img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=80',
+        description: 'An elegant living room with plush sofas and stylish décor.'
+      },
+      {
+        title: 'Minimal Bedroom',
+        type: 'Bedroom',
+        img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+        description: 'A calming bedroom featuring minimal furniture and soft tones.'
+      }
+    ];
+
+    const gallery = document.getElementById('designGallery');
+
+    function displayDesigns(list) {
+      gallery.innerHTML = '';
+      if (list.length === 0) {
+        gallery.innerHTML = '<p>No designs found.</p>';
+        return;
+      }
+      list.forEach(design => {
+        const card = document.createElement('div');
+        card.className = 'design-card';
+        card.innerHTML = `
+          <img src="${design.img}" alt="${design.title}" />
+          <div class="content">
+            <h3>${design.title}</h3>
+            <p><strong>Type:</strong> ${design.type}</p>
+            <p>${design.description}</p>
+          </div>
+        `;
+        gallery.appendChild(card);
+      });
+    }
+
+    function filterDesigns(type) {
+      if (type === 'all') {
+        displayDesigns(designs);
+      } else {
+        const filtered = designs.filter(d => d.type === type);
+        displayDesigns(filtered);
+      }
+    }
+
+    // Initial display
+    displayDesigns(designs);
+  </script>
+</body>
+</html>
